@@ -1,3 +1,3 @@
-module github.com/wanna-beat-by-bit/go_restapi
+module github.com/wanna-beat-by-bit/rest-golang
 
-go 1.13
+go 1.19
