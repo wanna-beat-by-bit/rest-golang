@@ -7,6 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user rsapi.User) (int, error)
+	GetUser(username, password string) (rsapi.User, error)
 }
 
 type TaskList interface {
