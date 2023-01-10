@@ -12,6 +12,7 @@ type Authorization interface {
 }
 
 type TaskList interface {
+	Create(userId int, list rsapi.TaskList) (int, error)
 }
 
 type TaskItem interface {
@@ -26,5 +27,6 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		TaskList:      NewTaskListService(repos.TaskList),
 	}
 }

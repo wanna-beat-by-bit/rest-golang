@@ -4,14 +4,30 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	rsapi "github.com/wanna-beat-by-bit/rest-golang"
 )
 
 func (h *Handler) createList(c *gin.Context) {
-	id, _ := c.Get(userCtx)
+	userId, err := getUserId(c)
+	if err != nil {
+		return
+	}
+
+	var input rsapi.TaskList
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	id, err := h.services.TaskList.Create(userId, input)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"id": id,
 	})
-
 }
 
 func (h *Handler) getAllList(c *gin.Context) {

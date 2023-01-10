@@ -11,6 +11,7 @@ type Authorization interface {
 }
 
 type TaskList interface {
+	Create(userId int, list rsapi.TaskList) (int, error)
 }
 
 type TaskItem interface {
@@ -25,5 +26,6 @@ type Repository struct {
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		TaskList:      NewTaskListPostgres(db),
 	}
 }
