@@ -16,3 +16,7 @@ func NewTaskListService(repo repository.TaskList) *TaskListService {
 func (s *TaskListService) Create(userId int, list rsapi.TaskList) (int, error) {
 	return s.repo.Create(userId, list)
 }
+
+func (s *TaskListService) GetAll(userId int) ([]rsapi.TaskList, error) {
+	return s.repo.GetAll(userId)
+}

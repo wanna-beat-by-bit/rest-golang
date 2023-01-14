@@ -30,7 +30,25 @@ func (h *Handler) createList(c *gin.Context) {
 	})
 }
 
+type getAllListsResponse struct {
+	Data []rsapi.TaskList `json.:"data"`
+}
+
 func (h *Handler) getAllList(c *gin.Context) {
+	userId, err := getUserId(c)
+	if err != nil {
+		return
+	}
+
+	lists, err := h.services.TaskList.GetAll(userId)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, getAllListsResponse{
+		Data: lists,
+	})
 
 }
 

@@ -13,6 +13,7 @@ type Authorization interface {
 
 type TaskList interface {
 	Create(userId int, list rsapi.TaskList) (int, error)
+	GetAll(userId int) ([]rsapi.TaskList, error)
 }
 
 type TaskItem interface {
