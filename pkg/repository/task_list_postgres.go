@@ -49,3 +49,11 @@ func (r *TaskListPostgres) GetAll(userId int) ([]rsapi.TaskList, error) {
 	return lists, err
 
 }
+
+func (r *TaskListPostgres) GetById(userId, listId int) (rsapi.TaskList, error) {
+	var list rsapi.TaskList
+	query := fmt.Sprintf(`SELECT tl.id, tl.title, tl.description FROM %s tl INNER JOIN %s ul on tl.id = ul.list_id WHERE ul.user_id = $1 AND ul.list_id = $2`, taskListsTable, usersListsTable)
+	err := r.db.Get(&list, query, userId, listId)
+
+	return list, err
+}

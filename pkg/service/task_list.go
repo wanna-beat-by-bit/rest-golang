@@ -20,3 +20,7 @@ func (s *TaskListService) Create(userId int, list rsapi.TaskList) (int, error) {
 func (s *TaskListService) GetAll(userId int) ([]rsapi.TaskList, error) {
 	return s.repo.GetAll(userId)
 }
+
+func (s *TaskListService) GetById(userId, listId int) (rsapi.TaskList, error) {
+	return s.repo.GetById(userId, listId)
+}
